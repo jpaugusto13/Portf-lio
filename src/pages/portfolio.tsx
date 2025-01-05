@@ -1,52 +1,60 @@
 import { useState } from "react";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 import mockupfeminino from "../../public/mockup.png";
 import { Link } from "react-router-dom";
 
 import estampa1 from "../../public/estampas/1.jpg";
-
 import estampa2 from "../../public/estampas/2.jpg";
-
 import estampa3 from "../../public/estampas/3.jpg";
-
 import estampa4 from "../../public/estampas/4.jpg";
-
 import estampa5 from "../../public/estampas/5.jpg";
-
 import estampa6 from "../../public/estampas/6.jpg";
 
 const Portfolio = () => {
-  // Estado para alternar entre modelo masculino e feminino
   const [model, setModel] = useState("masculino");
+  const [selectedEstampa, setSelectedEstampa] = useState(null);
+  const [activeLetter, setActiveLetter] = useState(null);
 
-  // Estado para armazenar a estampa selecionada
-  const [selectedEstampa, setSelectedEstampa] = useState("");
-
-  // Dados de exemplo para as estampas
   const estampas = [
-    { id: 1, name: "Estampa Floral", image: estampa1 },
-    {
-      id: 2,
-      name: "Estampa Geométrica",
-      image: estampa2,
-    },
-    {
-      id: 3,
-      name: "Estampa Animal Print",
-      image: estampa3,
-    },
-    { id: 4, name: "Estampa Abstrata", image: estampa4 },
-    {
-      id: 5,
-      name: "Estampa Minimalista",
-      image: estampa5,
-    },
-    { id: 6, name: "Estampa Tropical", image: estampa6 },
+    { id: 0, name: "Estampa Floral", image: estampa1, letter: "A" },
+    { id: 1, name: "Estampa Geométrica", image: estampa2, letter: "B" },
+    { id: 2, name: "Estampa Animal Print", image: estampa3, letter: "C" },
+    { id: 3, name: "Estampa Abstrata", image: estampa4, letter: "D" },
+    { id: 4, name: "Estampa Minimalista", image: estampa5, letter: "E" },
+    { id: 5, name: "Estampa Tropical", image: estampa6, letter: "F" },
   ];
 
+  const filteredEstampas = activeLetter
+    ? estampas.filter((e) => e.letter === activeLetter)
+    : estampas;
+
+  const carouselItems = filteredEstampas.map((estampa) => (
+    <div
+      key={estampa.id}
+      className={`rounded-lg max-md:w-[160px] max-md:h-[160px] w-[150px] h-[150px] mx-6 p-2 text-center cursor-pointer transition-transform duration-300 ${
+        selectedEstampa === estampa.image ? "scale-110" : ""
+      }`}
+      onClick={() => setSelectedEstampa(estampa.image)}
+    >
+      <img
+        src={estampa.image}
+        alt={estampa.name}
+        className="w-full h-full object-cover rounded-md"
+      />
+    </div>
+  ));
+
+  const handleSlideChange = (e) => {
+    const selectedIndex = e.item;
+    const selectedItem = filteredEstampas[selectedIndex];
+    if (selectedItem) setSelectedEstampa(selectedItem.image);
+  };
+
   return (
-    <div>
-      <header className="bg-black text-white shadow-md fixed top-0 w-full z-10">
-        <nav className="container mx-auto max-md:text-xs flex justify-between items-center py-4 px-6">
+    <div className="h-[100vh] bg-gray-50 overflow-hidden">
+      <header className="max-md:text-xs bg-black text-white shadow-md fixed top-0 w-full z-10">
+        <nav className="container mx-auto flex justify-between items-center py-4 px-6">
           <div className="flex items-center space-x-4">
             <img
               src="./logo.png"
@@ -54,14 +62,11 @@ const Portfolio = () => {
               className="max-md:hidden h-14 w-48"
             />
           </div>
-          <ul className="flex space-x-6 max-md:space-x-3">
+          <ul className="flex max-md:space-x-3 space-x-6">
             <li>
-              <a
-                href="#about-schedule"
-                className="hover:text-cyan-400 transition"
-              >
-                <Link to="/">Sobre Nós</Link>
-              </a>
+              <Link to="/" className="hover:text-cyan-400 transition">
+                Sobre Nós
+              </Link>
             </li>
             <li>
               <a href="#products" className="hover:text-fuchsia-400 transition">
@@ -83,68 +88,113 @@ const Portfolio = () => {
             href="https://wa.me/558582224466"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-cyan-400 text-black max-md:py-1 max-md:px-3 py-2 px-4 rounded-lg font-bold hover:bg-cyan-500 transition"
+            className="bg-cyan-400 text-black max-md:py-1  max-md:px-2 py-2 px-4 rounded-lg font-bold hover:bg-cyan-500 transition"
           >
             Fale Conosco
           </a>
         </nav>
       </header>
-      <div className="mt-16 font-sans bg-gray-50 text-gray-800 py-10 px-4 md:px-10 lg:px-20">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-          <div>
-            <h2 className="text-3xl font-bold mb-6 text-cyan-400">Estampas</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-6">
-              {estampas.map((estampa) => (
+
+      <div className="flex flex-col items-center mt-20 px-4">
+        {/* Botões de Filtro */}
+        <div className="flex flex-wrap max-md:hidden justify-center gap-2 my-4">
+          {Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ").map((letter) => (
+            <button
+              key={letter}
+              onClick={() => setActiveLetter(letter)}
+              className={`px-4 py-2 rounded ${
+                activeLetter === letter
+                  ? "bg-cyan-400 text-white"
+                  : "bg-gray-200 text-gray-600"
+              }`}
+            >
+              {letter}
+            </button>
+          ))}
+          <button
+            onClick={() => setActiveLetter(null)}
+            className="px-4 py-2 bg-red-400 text-white rounded"
+          >
+            Limpar
+          </button>
+        </div>
+
+        <div className="flex max-md:flex-wrap-reverse gap-x-10 gap-y-4 w-full ">
+          <div className="w-full">
+            <h2 className="max-md:text-xl text-3xl font-bold text-cyan-400 mb-3 text-center">
+              Estampas
+            </h2>
+            <div className="hidden md:grid grid-cols-3 gap-4">
+              {filteredEstampas.map((estampa) => (
                 <div
                   key={estampa.id}
-                  className="border rounded-lg shadow-sm hover:shadow-md transition p-4 text-center cursor-pointer"
+                  className="border rounded-lg overflow-hidden cursor-pointer"
                   onClick={() => setSelectedEstampa(estampa.image)}
                 >
                   <img
                     src={estampa.image}
                     alt={estampa.name}
-                    className="w-full h-40 object-cover rounded-md "
+                    className="w-full h-32 object-cover"
                   />
                 </div>
               ))}
             </div>
+            <div className="block md:hidden">
+              <AliceCarousel
+                items={carouselItems}
+                responsive={{
+                  0: { items: 2 },
+                  600: { items: 2 },
+                }}
+                paddingLeft={100}
+                paddingRight={0}
+                disableDotsControls
+                mouseTracking
+                keyboardNavigation
+                controlsStrategy="alternate"
+                infinite
+                onSlideChanged={handleSlideChange}
+              />
+            </div>
           </div>
 
-          {/* Modelo com Opção de Gênero */}
-          <div className="relative">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl font-bold text-magenta-400">Modelo</h2>
-              <div className="flex space-x-4">
+          {/* Modelo */}
+          <div className="w-full max-w-[600px] max-md:mt-5">
+            <div className="flex justify-between mt-4 gap-4">
+              <h2 className="text-3xl font-bold text-fuchsia-400 mb-6 text-center">
+                Modelo
+              </h2>
+              <div className="flex gap-4 h-10">
                 <button
                   onClick={() => setModel("masculino")}
-                  className={`py-2 px-4 rounded-lg font-bold ${
+                  className={`py-2 px-4 rounded transition-colors ${
                     model === "masculino"
-                      ? "bg-cyan-400 text-black"
+                      ? "bg-cyan-400"
                       : "bg-gray-200 text-gray-600"
-                  } hover:bg-cyan-500 transition`}
+                  }`}
                 >
                   Masculino
                 </button>
                 <button
                   onClick={() => setModel("feminino")}
-                  className={`py-2 px-4 rounded-lg font-bold ${
+                  className={`py-2 px-4 rounded transition-colors ${
                     model === "feminino"
                       ? "bg-fuchsia-500 text-white"
                       : "bg-gray-200 text-gray-600"
-                  } hover:bg-magenta-500 transition`}
+                  }`}
                 >
                   Feminino
                 </button>
               </div>
             </div>
+
             <div
-              className="border rounded-lg shadow-sm hover:shadow-md transition relative"
+              className="w-full min-h-[300px] max-h-[500px] overflow-hidden rounded-lg shadow-md"
               style={{
                 backgroundImage: selectedEstampa
                   ? `url(${selectedEstampa})`
                   : "none",
-                backgroundSize: "25%",
-                backgroundPosition: "center",
+                backgroundSize: "28%",
               }}
             >
               <img
@@ -154,7 +204,7 @@ const Portfolio = () => {
                     : mockupfeminino
                 }
                 alt={`Modelo ${model}`}
-                className="w-full h-full object-contain rounded-md"
+                className="w-full full object-contain "
               />
             </div>
           </div>
