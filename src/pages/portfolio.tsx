@@ -10,7 +10,8 @@ import estampa3 from "../../public/estampas/3.jpg";
 import estampa4 from "../../public/estampas/4.jpg";
 import estampa5 from "../../public/estampas/5.jpg";
 import estampa6 from "../../public/estampas/6.jpg";
-
+import estampa7 from "../../public/estampas/7.jpg";
+import estampa8 from "../../public/estampas/8.jpg";
 interface Estampa {
   id: number;
   name: string;
@@ -30,6 +31,8 @@ const Portfolio: React.FC = () => {
     { id: 3, name: "Estampa Abstrata", image: estampa4, letter: "D" },
     { id: 4, name: "Estampa Minimalista", image: estampa5, letter: "E" },
     { id: 5, name: "Estampa Tropical", image: estampa6, letter: "F" },
+    { id: 5, name: "Estampa Tropical", image: estampa7, letter: "F" },
+    { id: 5, name: "Estampa Tropical", image: estampa8, letter: "F" },
   ];
 
   const filteredEstampas = activeLetter
