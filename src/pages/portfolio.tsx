@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import mockupfeminino from "../../public/mockup.png";
 import { Link } from "react-router-dom";
 
