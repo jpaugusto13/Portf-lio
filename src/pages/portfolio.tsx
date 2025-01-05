@@ -11,12 +11,19 @@ import estampa4 from "../../public/estampas/4.jpg";
 import estampa5 from "../../public/estampas/5.jpg";
 import estampa6 from "../../public/estampas/6.jpg";
 
-const Portfolio = () => {
-  const [model, setModel] = useState("masculino");
-  const [selectedEstampa, setSelectedEstampa] = useState(null);
-  const [activeLetter, setActiveLetter] = useState(null);
+interface Estampa {
+  id: number;
+  name: string;
+  image: string;
+  letter: string;
+}
 
-  const estampas = [
+const Portfolio: React.FC = () => {
+  const [model, setModel] = useState<"masculino" | "feminino">("masculino");
+  const [selectedEstampa, setSelectedEstampa] = useState<string | null>(null);
+  const [activeLetter, setActiveLetter] = useState<string | null>(null);
+
+  const estampas: Estampa[] = [
     { id: 0, name: "Estampa Floral", image: estampa1, letter: "A" },
     { id: 1, name: "Estampa Geométrica", image: estampa2, letter: "B" },
     { id: 2, name: "Estampa Animal Print", image: estampa3, letter: "C" },
@@ -45,7 +52,7 @@ const Portfolio = () => {
     </div>
   ));
 
-  const handleSlideChange = (e) => {
+  const handleSlideChange = (e: { item: number }) => {
     const selectedIndex = e.item;
     const selectedItem = filteredEstampas[selectedIndex];
     if (selectedItem) setSelectedEstampa(selectedItem.image);
@@ -96,7 +103,6 @@ const Portfolio = () => {
       </header>
 
       <div className="flex flex-col items-center mt-20 px-4">
-        {/* Botões de Filtro */}
         <div className="flex flex-wrap max-md:hidden justify-center gap-2 my-4">
           {Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ").map((letter) => (
             <button
@@ -158,7 +164,6 @@ const Portfolio = () => {
             </div>
           </div>
 
-          {/* Modelo */}
           <div className="w-full max-w-[600px] max-md:mt-5">
             <div className="flex justify-between mt-4 gap-4">
               <h2 className="text-3xl font-bold text-fuchsia-400 mb-6 text-center">

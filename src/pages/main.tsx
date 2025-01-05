@@ -3,19 +3,20 @@ import { Link } from "react-router-dom";
 const MainPage = () => {
   return (
     <div className="font-sans bg-gray-50 text-gray-800">
-      <header className="bg-black text-white shadow-md fixed top-0 w-full z-10">
+      <header className="max-md:text-xs bg-black text-white shadow-md fixed top-0 w-full z-10">
         <nav className="container mx-auto flex justify-between items-center py-4 px-6">
           <div className="flex items-center space-x-4">
-            <img src="./logo.png" alt="Logo WiiPrint" className="h-14 w-48" />
+            <img
+              src="./logo.png"
+              alt="Logo WiiPrint"
+              className="max-md:hidden h-14 w-48"
+            />
           </div>
-          <ul className="flex space-x-6">
+          <ul className="flex max-md:space-x-3 space-x-6">
             <li>
-              <a
-                href="#about-schedule"
-                className="hover:text-cyan-400 transition"
-              >
-                <Link to="/">Sobre Nós</Link>
-              </a>
+              <Link to="/" className="hover:text-cyan-400 transition">
+                Sobre Nós
+              </Link>
             </li>
             <li>
               <a href="#products" className="hover:text-fuchsia-400 transition">
@@ -37,7 +38,7 @@ const MainPage = () => {
             href="https://wa.me/558582224466"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-cyan-400 text-black py-2 px-4 rounded-lg font-bold hover:bg-cyan-500 transition"
+            className="bg-cyan-400 text-black max-md:py-1  max-md:px-2 py-2 px-4 rounded-lg font-bold hover:bg-cyan-500 transition"
           >
             Fale Conosco
           </a>
