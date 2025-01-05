@@ -1,6 +1,18 @@
-import  { useState } from "react";
+import { useState } from "react";
 import mockupfeminino from "../../public/mockup.png";
 import { Link } from "react-router-dom";
+
+import estampa1 from "../../public/estampas/1.jpg";
+
+import estampa2 from "../../public/estampas/2.jpg";
+
+import estampa3 from "../../public/estampas/3.jpg";
+
+import estampa4 from "../../public/estampas/4.jpg";
+
+import estampa5 from "../../public/estampas/5.jpg";
+
+import estampa6 from "../../public/estampas/6.jpg";
 
 const Portfolio = () => {
   // Estado para alternar entre modelo masculino e feminino
@@ -11,24 +23,24 @@ const Portfolio = () => {
 
   // Dados de exemplo para as estampas
   const estampas = [
-    { id: 1, name: "Estampa Floral", image: "../../public/estampas/1.jpg" },
+    { id: 1, name: "Estampa Floral", image: estampa1 },
     {
       id: 2,
       name: "Estampa Geométrica",
-      image: "../../public/estampas/2.jpg",
+      image: estampa2,
     },
     {
       id: 3,
       name: "Estampa Animal Print",
-      image: "../../public/estampas/3.jpg",
+      image: estampa3,
     },
-    { id: 4, name: "Estampa Abstrata", image: "../../public/estampas/4.jpg" },
+    { id: 4, name: "Estampa Abstrata", image: estampa4 },
     {
       id: 5,
       name: "Estampa Minimalista",
-      image: "../../public/estampas/5.jpg",
+      image: estampa5,
     },
-    { id: 6, name: "Estampa Tropical", image: "../../public/estampas/6.jpg" },
+    { id: 6, name: "Estampa Tropical", image: estampa6 },
   ];
 
   return (
