@@ -75,7 +75,7 @@ const Portfolio: React.FC = () => {
                 Sobre Nós
               </Link>
             </li>
-            <li>
+            <li className="max-md:hidden">
               <a href="#products" className="hover:text-fuchsia-400 transition">
                 Produtos
               </a>
@@ -85,7 +85,7 @@ const Portfolio: React.FC = () => {
                 Artes & Estampas
               </Link>
             </li>
-            <li>
+            <li className="max-md:hidden">
               <a href="#contact" className="hover:text-gray-300 transition">
                 Contato
               </a>
@@ -152,8 +152,6 @@ const Portfolio: React.FC = () => {
                   0: { items: 2 },
                   600: { items: 2 },
                 }}
-                paddingLeft={100}
-                paddingRight={0}
                 disableDotsControls
                 mouseTracking
                 keyboardNavigation
