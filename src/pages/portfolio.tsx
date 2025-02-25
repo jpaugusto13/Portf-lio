@@ -2,7 +2,6 @@ import { useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import mockupfeminino from "../../public/mockup.png";
-import { Link } from "react-router-dom";
 
 import estampa1 from "../../public/estampas/1.jpg";
 import estampa2 from "../../public/estampas/2.jpg";
@@ -12,6 +11,7 @@ import estampa5 from "../../public/estampas/5.jpg";
 import estampa6 from "../../public/estampas/6.jpg";
 import estampa7 from "../../public/estampas/7.jpg";
 import estampa8 from "../../public/estampas/8.jpg";
+
 interface Estampa {
   id: number;
   name: string;
@@ -63,77 +63,13 @@ const Portfolio: React.FC = () => {
 
   return (
     <div className="h-[100vh] bg-gray-50 overflow-hidden">
-      <header className="max-md:text-xs bg-black text-white shadow-md fixed top-0 w-full z-10">
-        <nav className="container mx-auto flex justify-between items-center py-4 px-6">
-          <div className="flex items-center space-x-4">
-            <img
-              src="./logo.png"
-              alt="Logo WiiPrint"
-              className="max-md:hidden h-14 w-48"
-            />
-          </div>
-          <ul className="flex max-md:space-x-3 space-x-6">
-            <li>
-              <Link to="/" className="hover:text-cyan-400 transition">
-                Sobre Nós
-              </Link>
-            </li>
-            <li className="max-md:hidden">
-              <a href="#products" className="hover:text-fuchsia-400 transition">
-                Produtos
-              </a>
-            </li>
-            <li>
-              <Link to="portfolio" className="hover:text-yellow-400 transition">
-                Artes & Estampas
-              </Link>
-            </li>
-            <li className="max-md:hidden">
-              <a href="#contact" className="hover:text-gray-300 transition">
-                Contato
-              </a>
-            </li>
-          </ul>
-          <a
-            href="https://wa.me/558582224466"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-cyan-400 text-black max-md:py-1  max-md:px-2 py-2 px-4 rounded-lg font-bold hover:bg-cyan-500 transition"
-          >
-            Fale Conosco
-          </a>
-        </nav>
-      </header>
-
-      <div className="flex flex-col items-center mt-20 px-4">
-        <div className="flex flex-wrap max-md:hidden justify-center gap-2 my-4">
-          {Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ").map((letter) => (
-            <button
-              key={letter}
-              onClick={() => setActiveLetter(letter)}
-              className={`px-4 py-2 rounded ${
-                activeLetter === letter
-                  ? "bg-cyan-400 text-white"
-                  : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              {letter}
-            </button>
-          ))}
-          <button
-            onClick={() => setActiveLetter(null)}
-            className="px-4 py-2 bg-red-400 text-white rounded"
-          >
-            Limpar
-          </button>
-        </div>
-
+      <div className="flex flex-col items-center px-4">
         <div className="flex max-md:flex-wrap-reverse gap-x-10 gap-y-4 w-full ">
           <div className="w-full">
             <h2 className="max-md:text-xl text-3xl font-bold text-cyan-400 mb-3 text-center">
               Estampas
             </h2>
-            <div className="hidden md:grid grid-cols-3 gap-4">
+            <div className="hidden  md:grid sm:grid-cols-3 xl:grid-cols-5 gap-4">
               {filteredEstampas.map((estampa) => (
                 <div
                   key={estampa.id}
@@ -143,7 +79,7 @@ const Portfolio: React.FC = () => {
                   <img
                     src={estampa.image}
                     alt={estampa.name}
-                    className="w-full h-32 object-cover"
+                    className="w-full h-52 max-w-[300px] object-cover"
                   />
                 </div>
               ))}
@@ -185,7 +121,7 @@ const Portfolio: React.FC = () => {
                   onClick={() => setModel("feminino")}
                   className={`py-2 px-4 rounded transition-colors ${
                     model === "feminino"
-                      ? "bg-fuchsia-500 text-white"
+                      ? "bg-fuchsia-400 hover:bg-fuchsia-500 text-white"
                       : "bg-gray-200 text-gray-600"
                   }`}
                 >
@@ -214,6 +150,27 @@ const Portfolio: React.FC = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="flex flex-wrap max-md:hidden justify-center gap-2 my-4">
+          {Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ").map((letter) => (
+            <button
+              key={letter}
+              onClick={() => setActiveLetter(letter)}
+              className={`px-4 py-2 rounded ${
+                activeLetter === letter
+                  ? "bg-cyan-400 text-white"
+                  : "bg-gray-200 text-gray-600"
+              }`}
+            >
+              {letter}
+            </button>
+          ))}
+          <button
+            onClick={() => setActiveLetter(null)}
+            className="px-4 py-2 bg-red-400 text-white rounded"
+          >
+            Limpar
+          </button>
         </div>
       </div>
     </div>
